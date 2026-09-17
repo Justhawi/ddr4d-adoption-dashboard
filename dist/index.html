@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DDR4D Technology Adoption</title>
+  <meta name="description" content="Prototype decision dashboard for Training-of-Trainers requirements, technology adoption trajectories, and withdrawal planning.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%230a2433'/%3E%3Cpath d='M13 45V29m12 16V20m13 25V12m13 33V26' stroke='%2367d3aa' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root{--ink:#17372c;--muted:#60766e;--paper:#f1f5f2;--line:#d7e3dc;--navy:#123d2f;--navy2:#1a5a42;--blue:#2b8a62;--green:#239364;--lime:#b8dc75;--amber:#d99a32;--shadow:0 18px 50px rgba(18,61,47,.09)}
+    body{background:linear-gradient(180deg,#fafcfb 0,#f1f5f2 540px)}
+    main{padding-top:28px}
+    .control-shell{background:linear-gradient(115deg,#123d2f,#1a5a42)}
+    .goal-card{background:linear-gradient(140deg,#164a38,#237557)!important}
+    .interpretation-grid .accent{background:linear-gradient(135deg,#123d2f,#237557)}
+    .topbar{background:#123d2f}
+    .brandmark{background:linear-gradient(145deg,#c8e690,#70c79f)}
+    .kpis article:first-child:after,.kpis article:nth-child(2):after{background:#239364}
+    .insight-card{border-top-color:#239364}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brandmark">D4</span><div><strong>DDR4D</strong><span>Technology Adoption Decision Dashboard</span></div></div>
+    <div class="prototype"><span></span> Prototype · provisional parameters</div>
+    <button class="ghost top-action" id="summaryBtn">Download scenario summary</button>
+  </header>
+
+  <main>
+    <section class="control-shell" aria-labelledby="decision-heading">
+      <div class="section-intro"><div><p class="eyebrow">Management scenario</p><h1 id="decision-heading">DDR4D Technology Adoption Decision Dashboard</h1></div><p>Choose a technology, target and deadline to calculate ToT requirements, adoption trajectories and withdrawal outcomes.</p></div>
+      <div class="controls">
+        <label>Technology<select id="technology"><option>Modern beekeeping</option><option selected>Push–Pull Technology</option><option>Black Soldier Fly (BSF)</option><option>Fruit-fly IPM package</option></select></label>
+        <label>Active-adoption target<div class="range-value"><input id="target" type="range" min="10" max="50" step="5" value="30"><output id="targetOut">30%</output></div></label>
+        <label>Deadline<select id="deadline"><option value="12">12 months</option><option value="24">24 months</option><option value="36" selected>36 months</option><option value="48">48 months</option><option value="60">60 months</option></select></label>
+        <label>Eligible population<div class="range-value"><input id="eligibility" type="range" min="20" max="100" step="5" value="65"><output id="eligibilityOut">65%</output></div></label>
+        <label>Follow-up horizon<select id="horizon"><option value="24">2 years</option><option value="36">3 years</option><option value="60" selected>5 years</option></select></label>
+      </div>
+    </section>
+
+    <section class="kpis" aria-label="Management indicators">
+      <article><span>Total ToTs required</span><strong id="kpiTots">—</strong><small>Across 8 Admin2 units</small></article>
+      <article><span>Units reaching target</span><strong id="kpiUnits">—</strong><small id="kpiUnitsNote">within selected deadline</small></article>
+      <article><span>Eligible population</span><strong id="kpiEligible">—</strong><small id="kpiObserved">— observed</small></article>
+      <article><span>Median ToTs / 1,000</span><strong id="kpiIntensity">—</strong><small>eligible farmers</small></article>
+      <article class="goal-card"><span>Selected target and deadline</span><strong id="kpiGoal">30% · 36m</strong><small>active adoption X/M</small></article>
+    </section>
+
+    <nav class="tabs" aria-label="Dashboard views">
+      <button class="active" data-tab="spatial">Spatial requirements</button>
+      <button data-tab="temporal">Temporal dynamics</button>
+      <button data-tab="withdrawal">Withdrawal planning</button>
+      <button data-tab="parameters">Parameter provenance</button>
+    </nav>
+
+    <section class="tab-panel active" id="spatial">
+      <div class="panel-heading"><div><p class="eyebrow">Admin2 requirements</p><h2>Where trainer capacity is needed</h2></div><div class="inline-controls"><label>Map metric<select id="metric"><option value="tots">Minimum ToTs</option><option value="intensity">ToTs / 1,000</option></select></label><button class="ghost" id="csvBtn">Export table · CSV</button></div></div>
+      <div class="spatial-grid">
+        <div class="map-card"><div class="legend"><span>Lower</span><i></i><span>Higher requirement</span></div><div class="map" id="map" aria-label="Illustrative Admin2 requirement map"></div><p class="map-note">Select a unit to inspect its trajectory and withdrawal plan.</p></div>
+        <div class="selection-card"><span class="eyebrow">Selected Admin2</span><h3 id="selectedName">Kakamega Central</h3><p id="selectedMeta">—</p><div class="selection-stats"><div><span>Minimum ToTs</span><strong id="selectedTots">—</strong></div><div><span>Intensity</span><strong id="selectedIntensity">—</strong></div><div><span>Expected adopters</span><strong id="selectedAdopters">—</strong></div></div><button class="primary" data-jump="temporal">View adoption trajectory</button></div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th data-sort="name">Admin2</th><th data-sort="observed">Observed pop.</th><th data-sort="eligible">Eligible pop.</th><th data-sort="tots">Min. ToTs</th><th data-sort="intensity">ToTs / 1,000</th><th data-sort="adopters">Expected adopters</th><th data-sort="achieved">Achieved</th><th>Status</th></tr></thead><tbody id="adminRows"></tbody></table></div>
+    </section>
+
+    <section class="tab-panel" id="temporal">
+      <div class="panel-heading"><div><p class="eyebrow">Selected Admin2 · <span class="selected-inline">Kakamega Central</span></p><h2>Active adoption through time</h2></div><label class="toggle"><input type="checkbox" id="compartments"><span></span> Show U, A, X & D</label></div>
+      <div class="chart-layout"><div class="chart-card"><svg id="trajectoryChart" role="img" aria-label="Active adoption trajectory chart"></svg></div><aside class="insight-card"><span class="eyebrow">Deployment</span><strong id="temporalTots">— ToTs</strong><p id="temporalIntensity">— per 1,000 eligible farmers</p><div class="callout"><b id="deadlineResult">Target reached</b><span id="deadlineText">—</span></div><dl><div><dt>Model population M</dt><dd id="modelM">—</dd></div><div><dt>Access modifier</dt><dd id="accessMod">—</dd></div><div><dt>Definition</dt><dd>X/M at each time</dd></div></dl></aside></div>
+    </section>
+
+    <section class="tab-panel" id="withdrawal">
+      <div class="panel-heading"><div><p class="eyebrow">Selected Admin2 · <span class="selected-inline">Kakamega Central</span></p><h2>When can support be withdrawn?</h2></div><label class="withdraw-control">Withdraw ToTs at <output id="withdrawOut">36 months</output><input id="withdrawMonth" type="range" min="6" max="60" step="6" value="36"></label></div>
+      <div class="chart-layout"><div class="chart-card"><svg id="withdrawalChart" role="img" aria-label="Adoption before and after ToT withdrawal"></svg></div><aside class="insight-card"><span class="eyebrow">Management interpretation</span><div class="decision" id="maintenanceDecision"><i></i><div><strong>—</strong><span>—</span></div></div><dl class="metrics"><div><dt>At withdrawal</dt><dd id="atWithdrawal">—</dd></div><div><dt>Post-withdrawal minimum</dt><dd id="postMin">—</dd></div><div><dt>End of follow-up</dt><dd id="postEnd">—</dd></div><div><dt>Post-withdrawal peak</dt><dd id="postPeak">—</dd></div></dl></aside></div>
+      <div class="interpretation-grid"><article><span>Peer persistence</span><strong id="raValue">R<sub>A</sub> = —</strong><p id="peerText">—</p></article><article><span>No-ToT equilibrium</span><strong id="equilibrium">x* = —</strong><p>Long-run active-adoption level under the provisional scenario.</p></article><article class="accent"><span>Earliest tested withdrawal</span><strong id="earliest">—</strong><p>Maintains the selected target for the full follow-up period.</p></article></div>
+    </section>
+
+    <section class="tab-panel" id="parameters">
+      <div class="panel-heading"><div><p class="eyebrow">Model transparency</p><h2>Parameter provenance</h2></div><div class="warning-badge">0 empirically calibrated</div></div>
+      <div class="provenance-note"><strong>Prototype safeguard</strong><p>Transition rates below are transparent scenario values for interface demonstration. They are not empirical estimates and must be replaced or calibrated against longitudinal evidence before operational use.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Technology</th><th>Parameter</th><th>Scenario value</th><th>Unit</th><th>Status</th><th>Evidence / source</th><th>Notes</th></tr></thead><tbody id="parameterRows"></tbody></table></div>
+    </section>
+  </main>
+  <footer><span>DDR4D decision-support prototype</span><span>Active adoption means X/M, not cumulative ever-adoption.</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>

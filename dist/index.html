@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DDR4D Technology Adoption</title>
   <meta name="description" content="Prototype decision dashboard for Training-of-Trainers requirements, technology adoption trajectories, and withdrawal planning.">
+  <link rel="stylesheet" href="maplibre-gl.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -27,7 +28,7 @@
     </section>
 
     <section class="kpis" aria-label="Management indicators">
-      <article><span>Total ToTs required</span><strong id="kpiTots">—</strong><small>Across 8 Admin2 units</small></article>
+      <article><span>Total ToTs required</span><strong id="kpiTots">—</strong><small>Across 8 administrative units</small></article>
       <article><span>Units reaching target</span><strong id="kpiUnits">—</strong><small id="kpiUnitsNote">within selected deadline</small></article>
       <article><span>Eligible population</span><strong id="kpiEligible">—</strong><small id="kpiObserved">— observed</small></article>
       <article><span>Median ToTs / 1,000</span><strong id="kpiIntensity">—</strong><small>eligible farmers</small></article>
@@ -42,21 +43,21 @@
     </nav>
 
     <section class="tab-panel active" id="spatial">
-      <div class="panel-heading"><div><p class="eyebrow">Admin2 requirements</p><h2>Where trainer capacity is needed</h2></div><div class="inline-controls"><label>Map metric<select id="metric"><option value="tots">Minimum ToTs</option><option value="intensity">ToTs / 1,000</option></select></label><button class="ghost" id="csvBtn">Export table · CSV</button></div></div>
+      <div class="panel-heading"><div><p class="eyebrow">Administrative-unit requirements</p><h2>Where trainer capacity is needed</h2></div><div class="inline-controls"><label>Map metric<select id="metric"><option value="tots">Minimum ToTs</option><option value="intensity">ToTs / 1,000</option></select></label><button class="ghost" id="csvBtn">Export table · CSV</button></div></div>
       <div class="spatial-grid">
-        <div class="map-card"><div class="legend"><span>Lower</span><i></i><span>Higher requirement</span></div><div class="map" id="map" aria-label="Illustrative Admin2 requirement map"></div><p class="map-note">Select a unit to inspect its trajectory and withdrawal plan.</p></div>
-        <div class="selection-card"><span class="eyebrow">Selected Admin2</span><h3 id="selectedName">Kakamega Central</h3><p id="selectedMeta">—</p><div class="selection-stats"><div><span>Minimum ToTs</span><strong id="selectedTots">—</strong></div><div><span>Intensity</span><strong id="selectedIntensity">—</strong></div><div><span>Expected adopters</span><strong id="selectedAdopters">—</strong></div></div><button class="primary" data-jump="temporal">View adoption trajectory</button></div>
+        <div class="map-card"><div class="legend"><span>Lower</span><i></i><span>Higher requirement</span></div><div class="map" id="map" aria-label="Interactive map of western Kenya administrative units"><span class="map-loading">Loading administrative boundaries…</span></div><p class="map-note">Click a county to view its full scenario information. Boundaries: geoBoundaries; source datasets RCMRD GeoPortal and Africa GeoPortal.</p></div>
+        <div class="selection-card"><span class="eyebrow">Selected administrative unit</span><h3 id="selectedName">Kakamega</h3><p id="selectedMeta">—</p><div class="selection-stats"><div><span>Minimum ToTs</span><strong id="selectedTots">—</strong></div><div><span>Intensity</span><strong id="selectedIntensity">—</strong></div><div><span>Expected adopters</span><strong id="selectedAdopters">—</strong></div></div><button class="primary" data-jump="temporal">View adoption trajectory</button></div>
       </div>
-      <div class="table-wrap"><table><thead><tr><th data-sort="name">Admin2</th><th data-sort="observed">Observed pop.</th><th data-sort="eligible">Eligible pop.</th><th data-sort="tots">Min. ToTs</th><th data-sort="intensity">ToTs / 1,000</th><th data-sort="adopters">Expected adopters</th><th data-sort="achieved">Achieved</th><th>Status</th></tr></thead><tbody id="adminRows"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th data-sort="name">Administrative unit</th><th data-sort="observed">Observed pop.</th><th data-sort="eligible">Eligible pop.</th><th data-sort="tots">Min. ToTs</th><th data-sort="intensity">ToTs / 1,000</th><th data-sort="adopters">Expected adopters</th><th data-sort="achieved">Achieved</th><th>Status</th></tr></thead><tbody id="adminRows"></tbody></table></div>
     </section>
 
     <section class="tab-panel" id="temporal">
-      <div class="panel-heading"><div><p class="eyebrow">Selected Admin2 · <span class="selected-inline">Kakamega Central</span></p><h2>Active adoption through time</h2></div><label class="toggle"><input type="checkbox" id="compartments"><span></span> Show U, A, X & D</label></div>
+      <div class="panel-heading"><div><p class="eyebrow">Selected unit · <span class="selected-inline">Kakamega</span></p><h2>Active adoption through time</h2></div><label class="toggle"><input type="checkbox" id="compartments"><span></span> Show U, A, X & D</label></div>
       <div class="chart-layout"><div class="chart-card"><svg id="trajectoryChart" role="img" aria-label="Active adoption trajectory chart"></svg></div><aside class="insight-card"><span class="eyebrow">Deployment</span><strong id="temporalTots">— ToTs</strong><p id="temporalIntensity">— per 1,000 eligible farmers</p><div class="callout"><b id="deadlineResult">Target reached</b><span id="deadlineText">—</span></div><dl><div><dt>Model population M</dt><dd id="modelM">—</dd></div><div><dt>Access modifier</dt><dd id="accessMod">—</dd></div><div><dt>Definition</dt><dd>X/M at each time</dd></div></dl></aside></div>
     </section>
 
     <section class="tab-panel" id="withdrawal">
-      <div class="panel-heading"><div><p class="eyebrow">Selected Admin2 · <span class="selected-inline">Kakamega Central</span></p><h2>When can support be withdrawn?</h2></div><label class="withdraw-control">Withdraw ToTs at <output id="withdrawOut">36 months</output><input id="withdrawMonth" type="range" min="6" max="60" step="6" value="36"></label></div>
+      <div class="panel-heading"><div><p class="eyebrow">Selected unit · <span class="selected-inline">Kakamega</span></p><h2>When can support be withdrawn?</h2></div><label class="withdraw-control">Withdraw ToTs at <output id="withdrawOut">36 months</output><input id="withdrawMonth" type="range" min="6" max="60" step="6" value="36"></label></div>
       <div class="chart-layout"><div class="chart-card"><svg id="withdrawalChart" role="img" aria-label="Adoption before and after ToT withdrawal"></svg></div><aside class="insight-card"><span class="eyebrow">Management interpretation</span><div class="decision" id="maintenanceDecision"><i></i><div><strong>—</strong><span>—</span></div></div><dl class="metrics"><div><dt>At withdrawal</dt><dd id="atWithdrawal">—</dd></div><div><dt>Post-withdrawal minimum</dt><dd id="postMin">—</dd></div><div><dt>End of follow-up</dt><dd id="postEnd">—</dd></div><div><dt>Post-withdrawal peak</dt><dd id="postPeak">—</dd></div></dl></aside></div>
       <div class="interpretation-grid"><article><span>Peer persistence</span><strong id="raValue">R<sub>A</sub> = —</strong><p id="peerText">—</p></article><article><span>No-ToT equilibrium</span><strong id="equilibrium">x* = —</strong><p>Long-run active-adoption level under the provisional scenario.</p></article><article class="accent"><span>Earliest tested withdrawal</span><strong id="earliest">—</strong><p>Maintains the selected target for the full follow-up period.</p></article></div>
     </section>
@@ -68,6 +69,7 @@
     </section>
   </main>
   <footer><span>DDR4D decision-support prototype</span><span>Active adoption means X/M, not cumulative ever-adoption.</span></footer>
+  <script src="maplibre-gl.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

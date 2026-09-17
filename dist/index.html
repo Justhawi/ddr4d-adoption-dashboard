@@ -7,29 +7,17 @@
   <meta name="description" content="Prototype decision dashboard for Training-of-Trainers requirements, technology adoption trajectories, and withdrawal planning.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%230a2433'/%3E%3Cpath d='M13 45V29m12 16V20m13 25V12m13 33V26' stroke='%2367d3aa' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    :root{--ink:#17372c;--muted:#60766e;--paper:#f1f5f2;--line:#d7e3dc;--navy:#123d2f;--navy2:#1a5a42;--blue:#2b8a62;--green:#239364;--lime:#b8dc75;--amber:#d99a32;--shadow:0 18px 50px rgba(18,61,47,.09)}
-    body{background:linear-gradient(180deg,#fafcfb 0,#f1f5f2 540px)}
-    main{padding-top:28px}
-    .control-shell{background:linear-gradient(115deg,#123d2f,#1a5a42)}
-    .goal-card{background:linear-gradient(140deg,#164a38,#237557)!important}
-    .interpretation-grid .accent{background:linear-gradient(135deg,#123d2f,#237557)}
-    .topbar{background:#123d2f}
-    .brandmark{background:linear-gradient(145deg,#c8e690,#70c79f)}
-    .kpis article:first-child:after,.kpis article:nth-child(2):after{background:#239364}
-    .insight-card{border-top-color:#239364}
-  </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand"><span class="brandmark">D4</span><div><strong>DDR4D</strong><span>Technology Adoption Decision Dashboard</span></div></div>
-    <div class="prototype"><span></span> Prototype · provisional parameters</div>
+    <div class="brand"><strong>DDR4D Technology Adoption Decision Dashboard</strong><span>Version 1.0 · Prototype specification · September 2026</span></div>
+    <div class="prototype">Provisional parameters</div>
     <button class="ghost top-action" id="summaryBtn">Download scenario summary</button>
   </header>
 
   <main>
     <section class="control-shell" aria-labelledby="decision-heading">
-      <div class="section-intro"><div><p class="eyebrow">Management scenario</p><h1 id="decision-heading">DDR4D Technology Adoption Decision Dashboard</h1></div><p>Choose a technology, target and deadline to calculate ToT requirements, adoption trajectories and withdrawal outcomes.</p></div>
+      <div class="section-intro"><div><p class="eyebrow">Management scenario</p><h1 id="decision-heading">Set the adoption goal</h1></div><p>The management choices below update every dashboard output.</p></div>
       <div class="controls">
         <label>Technology<select id="technology"><option>Modern beekeeping</option><option selected>Push–Pull Technology</option><option>Black Soldier Fly (BSF)</option><option>Fruit-fly IPM package</option></select></label>
         <label>Active-adoption target<div class="range-value"><input id="target" type="range" min="10" max="50" step="5" value="30"><output id="targetOut">30%</output></div></label>

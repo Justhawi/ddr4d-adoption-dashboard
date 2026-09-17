@@ -161,19 +161,18 @@ output { white-space: nowrap; font-weight: 700; }
 .map-card { padding: 16px; }
 .legend { display: flex; justify-content: flex-end; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
 .legend i { width: 100px; height: 7px; background: linear-gradient(90deg,#dcebe2,#287a55); }
-.map { height: 310px; position: relative; overflow: hidden; margin-top: 10px; background: #eef3f0; border: 1px solid var(--line); }
-.region {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  border: 2px solid #fff;
-  clip-path: polygon(8% 6%,91% 0,100% 83%,78% 100%,3% 91%,0 21%);
-  color: #173e2d;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-.region:hover, .region.selected { z-index: 2; outline: 3px solid var(--green-900); outline-offset: 1px; }
+.map { height: 460px; position: relative; overflow: hidden; margin-top: 10px; background: #eef3f0; border: 1px solid var(--line); }
+.map-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
+.maplibregl-map { font-family: Arial, Helvetica, sans-serif; }
+.maplibregl-ctrl-group { border-radius: 2px; box-shadow: none; border: 1px solid var(--line); }
+.maplibregl-ctrl-attrib { font-size: 10px; }
+.maplibregl-popup-content { border-radius: 2px; padding: 14px; box-shadow: 0 2px 8px rgb(20 53 39 / 18%); border-top: 3px solid var(--green-700); }
+.maplibregl-popup-close-button { font-size: 18px; padding: 3px 7px; color: var(--muted); }
+.county-popup > strong { display: block; color: var(--green-900); font-size: 16px; margin: 0 20px 8px 0; }
+.county-popup dl { margin: 0; }
+.county-popup dl div { display: flex; justify-content: space-between; gap: 14px; padding: 5px 0; border-top: 1px solid var(--line); }
+.county-popup dt { color: var(--muted); }
+.county-popup dd { margin: 0; font-weight: 700; text-align: right; }
 .map-note { margin: 10px 0 0; text-align: center; color: var(--muted); font-size: 12px; }
 .selection-card { padding: 20px; border-top: 4px solid var(--green-700); display: flex; flex-direction: column; }
 .selection-card > p { color: var(--muted); }
@@ -256,7 +255,7 @@ footer { max-width: 1380px; margin: 0 auto; padding: 22px 28px; display: flex; j
   .tabs { overflow-x: auto; }
   .tabs button { white-space: nowrap; padding: 11px 13px; }
   .section-intro, .panel-heading { align-items: flex-start; flex-direction: column; }
-  .map { height: 260px; }
+  .map { height: 360px; }
   .chart-card { padding: 2px; }
   .inline-controls { width: 100%; flex-wrap: wrap; }
   footer, .provenance-note { flex-direction: column; }

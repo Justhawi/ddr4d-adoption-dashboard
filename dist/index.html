@@ -3,73 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BRAINS Technology Adoption</title>
-  <meta name="description" content="Prototype decision dashboard for Training-of-Trainers requirements, technology adoption trajectories, and withdrawal planning.">
+  <title>BRAINS Push Pull Adoption Dashboard</title>
+  <meta name="description" content="Precomputed Push Pull adoption scenarios for management decisions.">
   <link rel="stylesheet" href="maplibre-gl.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand"><strong>BRAINS Technology Adoption Decision Dashboard</strong><span>Version 1.0 · Prototype specification · September 2026</span></div>
-    <div class="prototype">Provisional parameters</div>
-    <button class="ghost top-action" id="summaryBtn">Download scenario summary</button>
-  </header>
-
+  <header class="topbar"><div class="brand"><strong>BRAINS Adoption Decision Support</strong><span>Push Pull scenario explorer</span></div><div class="prototype">Precomputed scenario library</div></header>
   <main>
-    <section class="control-shell" aria-labelledby="decision-heading">
-      <div class="section-intro"><div><p class="eyebrow">Management scenario</p><h1 id="decision-heading">Set the adoption goal</h1></div><p>The management choices below update every dashboard output.</p></div>
-      <div class="controls">
-        <label>Technology<select id="technology"><option>Modern beekeeping</option><option selected>Push–Pull Technology</option><option>Black Soldier Fly (BSF)</option><option>Fruit-fly IPM package</option></select></label>
-        <label>Active-adoption target<div class="range-value"><input id="target" type="range" min="10" max="50" step="5" value="30"><output id="targetOut">30%</output></div></label>
-        <label>Deadline<select id="deadline"><option value="12">12 months</option><option value="24">24 months</option><option value="36" selected>36 months</option><option value="48">48 months</option><option value="60">60 months</option></select></label>
-        <label>Eligible population<div class="range-value"><input id="eligibility" type="range" min="20" max="100" step="5" value="65"><output id="eligibilityOut">65%</output></div></label>
-        <label>Follow-up horizon<select id="horizon"><option value="24">2 years</option><option value="36">3 years</option><option value="60" selected>5 years</option></select></label>
-      </div>
-    </section>
-
-    <section class="kpis" aria-label="Management indicators">
-      <article><span>Total ToTs required</span><strong id="kpiTots">—</strong><small>Across 8 administrative units</small></article>
-      <article><span>Units reaching target</span><strong id="kpiUnits">—</strong><small id="kpiUnitsNote">within selected deadline</small></article>
-      <article><span>Eligible population</span><strong id="kpiEligible">—</strong><small id="kpiObserved">— observed</small></article>
-      <article><span>Median ToTs / 1,000</span><strong id="kpiIntensity">—</strong><small>eligible farmers</small></article>
-      <article class="goal-card"><span>Selected target and deadline</span><strong id="kpiGoal">30% · 36m</strong><small>active adoption X/M</small></article>
-    </section>
-
-    <nav class="tabs" aria-label="Dashboard views">
-      <button class="active" data-tab="spatial">Spatial requirements</button>
-      <button data-tab="temporal">Temporal dynamics</button>
-      <button data-tab="withdrawal">Withdrawal planning</button>
-      <button data-tab="parameters">Parameter provenance</button>
-    </nav>
-
-    <section class="tab-panel active" id="spatial">
-      <div class="panel-heading"><div><p class="eyebrow">Administrative-unit requirements</p><h2>Where trainer capacity is needed</h2></div><div class="inline-controls"><label>Map metric<select id="metric"><option value="tots">Minimum ToTs</option><option value="intensity">ToTs / 1,000</option></select></label><button class="ghost" id="csvBtn">Export table · CSV</button></div></div>
-      <div class="spatial-grid">
-        <div class="map-card"><div class="legend"><span>Lower</span><i></i><span>Higher requirement</span></div><div class="map" id="map" aria-label="Interactive map of western Kenya administrative units"><span class="map-loading">Loading administrative boundaries…</span></div><p class="map-note">Click a county to view its full scenario information. Boundaries: geoBoundaries; source datasets RCMRD GeoPortal and Africa GeoPortal.</p></div>
-        <div class="selection-card"><span class="eyebrow">Selected administrative unit</span><h3 id="selectedName">Kakamega</h3><p id="selectedMeta">—</p><div class="selection-stats"><div><span>Minimum ToTs</span><strong id="selectedTots">—</strong></div><div><span>Intensity</span><strong id="selectedIntensity">—</strong></div><div><span>Expected adopters</span><strong id="selectedAdopters">—</strong></div></div><button class="primary" data-jump="temporal">View adoption trajectory</button></div>
-      </div>
-      <div class="table-wrap"><table><thead><tr><th data-sort="name">Administrative unit</th><th data-sort="observed">Observed pop.</th><th data-sort="eligible">Eligible pop.</th><th data-sort="tots">Min. ToTs</th><th data-sort="intensity">ToTs / 1,000</th><th data-sort="adopters">Expected adopters</th><th data-sort="achieved">Achieved</th><th>Status</th></tr></thead><tbody id="adminRows"></tbody></table></div>
-    </section>
-
-    <section class="tab-panel" id="temporal">
-      <div class="panel-heading"><div><p class="eyebrow">Selected unit · <span class="selected-inline">Kakamega</span></p><h2>Active adoption through time</h2></div><label class="toggle"><input type="checkbox" id="compartments"><span></span> Show U, A, X & D</label></div>
-      <div class="chart-layout"><div class="chart-card"><svg id="trajectoryChart" role="img" aria-label="Active adoption trajectory chart"></svg></div><aside class="insight-card"><span class="eyebrow">Deployment</span><strong id="temporalTots">— ToTs</strong><p id="temporalIntensity">— per 1,000 eligible farmers</p><div class="callout"><b id="deadlineResult">Target reached</b><span id="deadlineText">—</span></div><dl><div><dt>Model population M</dt><dd id="modelM">—</dd></div><div><dt>Access modifier</dt><dd id="accessMod">—</dd></div><div><dt>Definition</dt><dd>X/M at each time</dd></div></dl></aside></div>
-    </section>
-
-    <section class="tab-panel" id="withdrawal">
-      <div class="panel-heading"><div><p class="eyebrow">Selected unit · <span class="selected-inline">Kakamega</span></p><h2>When can support be withdrawn?</h2></div><label class="withdraw-control">Withdraw ToTs at <output id="withdrawOut">36 months</output><input id="withdrawMonth" type="range" min="6" max="60" step="6" value="36"></label></div>
-      <div class="chart-layout"><div class="chart-card"><svg id="withdrawalChart" role="img" aria-label="Adoption before and after ToT withdrawal"></svg></div><aside class="insight-card"><span class="eyebrow">Management interpretation</span><div class="decision" id="maintenanceDecision"><i></i><div><strong>—</strong><span>—</span></div></div><dl class="metrics"><div><dt>At withdrawal</dt><dd id="atWithdrawal">—</dd></div><div><dt>Post-withdrawal minimum</dt><dd id="postMin">—</dd></div><div><dt>End of follow-up</dt><dd id="postEnd">—</dd></div><div><dt>Post-withdrawal peak</dt><dd id="postPeak">—</dd></div></dl></aside></div>
-      <div class="interpretation-grid"><article><span>Peer persistence</span><strong id="raValue">R<sub>A</sub> = —</strong><p id="peerText">—</p></article><article><span>No-ToT equilibrium</span><strong id="equilibrium">x* = —</strong><p>Long-run active-adoption level under the provisional scenario.</p></article><article class="accent"><span>Earliest tested withdrawal</span><strong id="earliest">—</strong><p>Maintains the selected target for the full follow-up period.</p></article></div>
-    </section>
-
-    <section class="tab-panel" id="parameters">
-      <div class="panel-heading"><div><p class="eyebrow">Model transparency</p><h2>Parameter provenance</h2></div><div class="warning-badge">0 empirically calibrated</div></div>
-      <div class="provenance-note"><strong>Prototype safeguard</strong><p>Transition rates below are transparent scenario values for interface demonstration. They are not empirical estimates and must be replaced or calibrated against longitudinal evidence before operational use.</p></div>
-      <div class="table-wrap"><table><thead><tr><th>Technology</th><th>Parameter</th><th>Scenario value</th><th>Unit</th><th>Status</th><th>Evidence / source</th><th>Notes</th></tr></thead><tbody id="parameterRows"></tbody></table></div>
-    </section>
+    <section class="control-shell" aria-labelledby="scenario-title"><div class="section-intro"><div><p class="eyebrow">Management scenario</p><h1 id="scenario-title">Select a precomputed adoption scenario</h1></div><p>Results are read directly from the supplied scenario and trajectory files.</p></div><div class="controls scenario-controls"><label>Technology<select id="technology"></select></label><label>Country<select id="country"></select></label><label>Administrative level<select id="adminLevel"></select></label><label>Administrative unit<select id="adminUnit"></select></label><label>Target adoption<select id="target"></select></label><label>Deadline<select id="deadline"></select></label></div><p class="scenario-status" id="scenarioStatus" role="status">Loading scenario library…</p></section>
+    <section class="kpis" aria-label="Selected scenario indicators"><article><span>Minimum ToTs</span><strong id="minimumTot">—</strong><small>for 10,000 simulated eligible farmers</small></article><article><span>ToTs per 1,000 farmers</span><strong id="totPer1000">—</strong><small>primary geographic comparison metric</small></article><article><span>Adoption at deadline</span><strong id="deadlineAdoption">—</strong><small id="deadlineNote">—</small></article><article><span>Earliest safe withdrawal</span><strong id="safeWithdrawal">—</strong><small>tested scenario horizon</small></article><article><span>5-year adoption after exit</span><strong id="adoptionAfterExit">—</strong><small>where withdrawal is feasible</small></article><article class="goal-card"><span>Target maintained after withdrawal</span><strong id="maintained">—</strong><small id="statusText">—</small></article></section>
+    <section class="dashboard-grid"><article class="map-card"><div class="panel-heading"><div><p class="eyebrow">Administrative decision map</p><h2>Compare implementation requirements</h2></div><label>Map indicator<select id="mapMetric"><option value="TOT_per_1000">ToTs per 1,000</option><option value="minimum_TOT">Minimum ToTs</option><option value="earliest_safe_withdrawal_month">Exit timing</option><option value="adoption_5y_after_percent">5-year adoption</option></select></label></div><div id="map" class="map"><span class="map-loading">Loading administrative boundaries…</span></div><p class="map-note">Click an available administrative unit to update the scenario. Boundaries are from geoBoundaries and HDX COD-AB.</p></article><article class="chart-card"><div class="panel-heading"><div><p class="eyebrow">Selected scenario</p><h2 id="trajectoryTitle">Adoption trajectory</h2></div></div><svg id="trajectoryChart" role="img" aria-label="Continued support and optimal withdrawal adoption trajectories"></svg><div class="chart-key"><span><i class="continued"></i> Continued support</span><span><i class="withdrawal"></i> Optimal withdrawal</span><span><i class="target-line-key"></i> Target</span></div></article></section>
+    <section class="comparison-section"><div class="panel-heading"><div><p class="eyebrow">Scenario comparison</p><h2>Compare 2–3 management choices</h2></div><button class="primary" id="pinScenario">Pin current scenario</button></div><div id="pinnedScenarios" class="pinned-empty">No scenarios pinned.</div></section>
+    <section class="table-section"><div class="panel-heading"><div><p class="eyebrow">Cross-area management comparison</p><h2>Administrative units at the selected target and deadline</h2></div></div><div class="table-wrap"><table><thead><tr><th data-sort="admin_unit">Administrative unit</th><th data-sort="survey_n">Survey n</th><th data-sort="TOT_per_1000">ToTs / 1,000</th><th data-sort="minimum_TOT">Minimum ToTs</th><th data-sort="earliest_safe_withdrawal_month">Safe withdrawal</th><th data-sort="adoption_5y_after_percent">5-year adoption</th><th data-sort="target_maintained_after_withdrawal">Maintained?</th><th data-sort="status">Status</th></tr></thead><tbody id="areaRows"></tbody></table></div></section>
+    <details class="model-info"><summary>Model information and parameter provenance</summary><div id="provenance"></div><p>The current comparison library simulates a standardized eligible population of 10,000 farmers in every area. Survey n is evidence sample size, not population. The frontend does not recalculate model outputs.</p></details>
   </main>
-  <footer><span>BRAINS decision-support prototype</span><span>Active adoption means X/M, not cumulative ever-adoption.</span></footer>
-  <script src="maplibre-gl.js"></script>
-  <script src="app.js"></script>
+  <footer><span>BRAINS decision-support prototype</span><span>Active adoption is shown as a percentage of the simulated eligible population.</span></footer>
+  <script src="maplibre-gl.js"></script><script src="app.js"></script>
 </body>
 </html>

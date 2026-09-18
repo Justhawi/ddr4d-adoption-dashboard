@@ -4,7 +4,7 @@ const fmt = v => v == null || Number.isNaN(v) ? '—' : Math.round(v).toLocaleSt
 const pct = v => v == null || Number.isNaN(v) ? '—' : `${Number(v).toFixed(1)}%`;
 const key = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
 let master = [], boundaries = null, trajectories = {}, map, mapReady = false, pinned = [], sort = 'TOT_per_1000', sortDir = 1;
-let state = {technology:'Push-Pull',country:'Kenya',adminLevel:'Admin1',adminUnit:'Homabay',target:'30',deadline:'36',mapMetric:'TOT_per_1000'};
+let state = {technology:'Push-Pull',country:'Kenya',adminLevel:'Admin2',adminUnit:'Alego-Usonga',target:'30',deadline:'36',mapMetric:'TOT_per_1000'};
 
 function parseCSV(text) { const out=[]; let row=[], cell='', quote=false; for(let i=0;i<text.length;i++){const c=text[i], n=text[i+1]; if(c==='"'){if(quote&&n==='"'){cell+='"';i++;}else quote=!quote;}else if(c===','&&!quote){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!quote){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(x=>x!==''))out.push(row);row=[];cell='';}else cell+=c;} if(cell||row.length){row.push(cell);out.push(row);} const headers=out.shift(); return out.map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??'']))); }
 const unique = (rows, field) => [...new Set(rows.map(r=>r[field]).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),undefined,{numeric:true}));

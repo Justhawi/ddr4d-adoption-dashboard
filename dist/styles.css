@@ -234,6 +234,8 @@ footer { max-width: 1380px; margin: 0 auto; padding: 22px 28px; display: flex; j
 .deadline-line, .withdraw-line { stroke: #6f7c75; stroke-width: 2; stroke-dasharray: 3 5; }
 .series { fill: none; stroke: var(--green-700); stroke-width: 3; stroke-linecap: round; }
 .series.post { stroke: #c28620; }
+.series.continued { stroke: #287a55; }
+.series.withdrawal { stroke: #b46a25; stroke-dasharray: 8 5; }
 .compartment { fill: none; stroke-width: 2; opacity: .75; }
 .chart-label { font-size: 12px; fill: #607069; }
 .chart-title { font-size: 13px; font-weight: 700; fill: #263a30; }
@@ -280,7 +282,7 @@ footer { max-width: 1380px; margin: 0 auto; padding: 22px 28px; display: flex; j
 .chart-key { display: flex; flex-wrap: wrap; gap: 15px; color: var(--muted); font-size: 12px; }
 .chart-key span { display: inline-flex; gap: 6px; align-items: center; }
 .chart-key i { display: inline-block; width: 24px; height: 3px; background: #287a55; }
-.chart-key .withdrawal { background: #174b35; border-top: 3px dashed #174b35; height: 0; }
+.chart-key .withdrawal { background: #b46a25; border-top: 3px dashed #b46a25; height: 0; }
 .chart-key .target-line-key { background: #b46a25; }
 .comparison-section, .table-section, .model-info { margin-top: 20px; }
 .comparison-section .panel-heading, .table-section .panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 14px; }

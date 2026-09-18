@@ -266,3 +266,36 @@ footer { max-width: 1380px; margin: 0 auto; padding: 22px 28px; display: flex; j
   main { padding: 0; }
   .tab-panel { display: block !important; break-before: page; }
 }
+
+/* BRAINS scenario explorer */
+.scenario-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.scenario-status { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 26px; }
+.dashboard-grid > article, .comparison-section, .table-section, .model-info { background: #fff; border: 1px solid var(--line); padding: 18px; }
+.dashboard-grid .map-card { padding: 18px; }
+.dashboard-grid .chart-card { padding: 18px; }
+.dashboard-grid .panel-heading { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+.dashboard-grid .map { height: 425px; }
+#trajectoryChart { display: block; width: 100%; min-height: 425px; }
+.chart-key { display: flex; flex-wrap: wrap; gap: 15px; color: var(--muted); font-size: 12px; }
+.chart-key span { display: inline-flex; gap: 6px; align-items: center; }
+.chart-key i { display: inline-block; width: 24px; height: 3px; background: #287a55; }
+.chart-key .withdrawal { background: #174b35; border-top: 3px dashed #174b35; height: 0; }
+.chart-key .target-line-key { background: #b46a25; }
+.comparison-section, .table-section, .model-info { margin-top: 20px; }
+.comparison-section .panel-heading, .table-section .panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.pinned-empty { color: var(--muted); padding: 8px 0; }
+.pinned-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.pinned-grid article { position: relative; border: 1px solid var(--line); border-top: 3px solid var(--green-700); padding: 14px; }
+.pinned-grid article > strong, .pinned-grid article > span { display: block; }
+.pinned-grid article > span { color: var(--muted); font-size: 13px; margin-top: 3px; }
+.pinned-grid button { position: absolute; right: 7px; top: 5px; border: 0; background: transparent; color: var(--muted); font-size: 22px; cursor: pointer; }
+.pinned-grid dl, .provenance-grid { margin: 12px 0 0; }
+.pinned-grid dl div, .provenance-grid div { display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding: 6px 0; }
+.pinned-grid dt, .provenance-grid dt { color: var(--muted); }
+.pinned-grid dd, .provenance-grid dd { margin: 0; text-align: right; font-weight: 700; }
+.model-info { color: var(--text); }
+.model-info summary { cursor: pointer; color: var(--green-900); font-weight: 700; }
+.model-info > div, .model-info > p { margin-top: 16px; }
+.provenance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+@media (max-width: 800px) { .scenario-controls, .dashboard-grid, .pinned-grid { grid-template-columns: 1fr; } .dashboard-grid .map { height: 360px; } #trajectoryChart { min-height: 300px; } .dashboard-grid .panel-heading, .comparison-section .panel-heading, .table-section .panel-heading { flex-direction: column; } .provenance-grid { grid-template-columns: 1fr; } }
